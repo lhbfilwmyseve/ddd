@@ -19,12 +19,12 @@ class Authority implements Auth
 
     function __construct()
     {
-        $this->getKey();
         $this->makeSign();
     }
 
     public function makeSign()
     {
+        $this->key = $this->getKey();
         $data = sha1(json_encode(['appId' => self::APPID, 'salt' => self::SALT]));
         $this->sign = $this->pkcs5(openssl_encrypt($data, self::METHOD, $this->key));
 
