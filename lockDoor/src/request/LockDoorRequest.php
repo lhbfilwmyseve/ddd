@@ -12,7 +12,7 @@ namespace LockDoor\Request;
 
 class LockDoorRequest implements ILockDoorRequest
 {
-    public function request($url,$params = [])
+    public function request($url,$params = [],$method = 'POST')
     {
         // TODO: Implement request() method.
         return '';

@@ -42,7 +42,7 @@ class Authority implements IAuth
         return self::$instance;
     }
 
-    public function getAuthoriryData(){
+    public function getAuthorityData(){
         return [
             'appid'=>self::APP_ID,
             'salt'=>self::SALT,

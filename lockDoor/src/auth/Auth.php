@@ -32,7 +32,7 @@ class Auth
     {
         // TODO: Implement __invoke() method.
         $url = BASE_URL.'accessToken';
-        $params = array_merge($this->authority->getAuthoriryData(), ['timestamp' => time()]);
+        $params = array_merge($this->authority->getAuthorityData(), ['timestamp' => time()]);
         $responseRes = $this->request->request($url, $params);
         $responseResArr = $this->response->response($responseRes);
         if (!isset($responseResArr['code']) || $responseResArr['code'] > 0 || $responseResArr['code'] < 0) {

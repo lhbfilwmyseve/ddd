@@ -12,5 +12,5 @@ namespace LockDoor\Request;
 
 interface ILockDoorRequest
 {
-    public function request($url,$params = []);
+    public function request($url,$params = [],$method = 'POST');
 }
