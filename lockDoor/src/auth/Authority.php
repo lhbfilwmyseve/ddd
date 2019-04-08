@@ -27,7 +27,6 @@ class Authority implements IAuth
         $this->key = $this->getKey();
         $data = sha1(json_encode(['appId' => self::APP_ID, 'salt' => self::SALT]));
         $this->sign = $this->pkcs5(openssl_encrypt($data, self::METHOD, $this->key));
-
     }
 
     public function getKey()
@@ -43,6 +42,13 @@ class Authority implements IAuth
         return self::$instance;
     }
 
+    public function getAuthoriryData(){
+        return [
+            'appid'=>self::APP_ID,
+            'salt'=>self::SALT,
+            'sign'=>$this->sign
+        ];
+    }
 
     private function __clone()
     {

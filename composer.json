@@ -11,6 +11,9 @@
   "autoload": {
     "Psr-4": {
       "LockDoor\\": "lockDoor/src"
-    }
+    },
+    "files": [
+      "lockDoor/src/config/config.php"
+    ]
   }
 }
