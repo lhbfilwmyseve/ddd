@@ -12,5 +12,6 @@ namespace LockDoor\Request;
 
 interface ILockDoorRequest
 {
-    public function request();
+    const BASE_URL = 'https://api.fengchaoiot.com/';
+    public function request($url,$params = []);
 }
