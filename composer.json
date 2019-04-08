@@ -9,7 +9,7 @@
     "monolog/monolog": "1.24.0"
   },
   "autoload": {
-    "Psr-4": {
+    "psr-4": {
       "LockDoor\\": "lockDoor/src"
     },
     "files": [
