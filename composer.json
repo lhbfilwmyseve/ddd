@@ -13,7 +13,7 @@
       "LockDoor\\": "lockDoor/src"
     },
     "files": [
-      "lockDoor/src/config/config.php"
+      "lockDoor/src/config/"
     ]
   }
 }

@@ -7,4 +7,5 @@
  * Email:498807233@qq.com
  */
 
-define("BASE_URL",'https://api.fengchaoiot.com/');
+define('BASE_URL','https://api.fengchaoiot.com/');
+define('TOKEN_FILE','../config/token.txt');

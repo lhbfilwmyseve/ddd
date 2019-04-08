@@ -10,7 +10,7 @@ use LockDoor\Request\LockDoorRequest;
 use LockDoor\Response\LockDoorResponse;
 
 if (!function_exists('request')){
-    function request($url,$params,$method){
+    function request($url,$params,$method = 'POST'){
         $request = new LockDoorRequest();
         $response = new LockDoorResponse();
 
@@ -19,6 +19,6 @@ if (!function_exists('request')){
         if (!isset($responseArr['code']) || $responseArr['code'] > 0 || $responseArr['code'] < 0) {
             return [];
         }
-        return $responseArr['data'];
+        return $responseArr;
     }
 }

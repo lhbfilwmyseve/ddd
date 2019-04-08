@@ -7,37 +7,43 @@
  * Email:498807233@qq.com
  */
 
+namespace LockDoor\Device;
+
 use LockDoor\Auth\Auth;
+use LockDoor\Auth\Token;
 
 abstract class ADevice
 {
     private $accessToken;
 
-    private $expiresIn;
+    private $outTime;
 
-    private $url = BASE_URL.'devices';
+    public $url = BASE_URL . 'devices';
 
     public $deviceType = 'MU6610-BC-A';
 
-    function __construct()
+   public function __construct()
     {
         $this->isAccess();
     }
 
-    abstract public function getDeviceType();
-
-    private function isAccess()
+    public function isAccess()
     {
-        $auth = new Auth();
-        $accessArr = $auth();
-        if (!is_array($accessArr)) {
-            return 'access failed';
+        $token = new Token();
+        $accessArr = json_decode($token->getToken(), true);
+        if ($accessArr['outTime'] - 3 >= time()) {
+            $auth = new Auth();
+            $accessArr = $auth();
+            if (!is_array($accessArr)) {
+                return 'access failed';
+            }
+            if (array_diff(['accessToken', 'expiresIn'], $accessArr)) {
+                return 'access failed';
+            }
+            $this->accessToken = $accessArr['accessToken'];
+            $this->outTime = $accessArr['outTime'];
         }
-        if (array_diff(['accessToken', 'expiresIn'], $accessArr)) {
-            return 'access failed';
-        }
-        $this->accessToken = $accessArr['accessToken'];
-        $this->expiresIn = $accessArr['expiresIn'];
+
         return $this;
     }
 
@@ -47,20 +53,48 @@ abstract class ADevice
      * @param array $tags
      * @return array
      */
-    public function bind($secret,$tags = [])
+    public function bind($secret, $tags = [])
     {
         $method = 'POST';
         $params = [
-            'name'=>$this->deviceType,
-            'secret'=>$secret,
-            'tags'=>$tags
+            'name' => $this->deviceType,
+            'secret' => $secret,
+            'tags' => $tags
         ];
-      return  request($this->url,$params,$method);
+        return request($this->url, $params, $method);
     }
 
 
-
-    public function get($search,$product,$tags,$deviceId){
-
+    /**
+     * 查询设备
+     * @param string $search
+     * @param string $product
+     * @param array $tags
+     * @param string $deviceId
+     * @return array
+     */
+    public function get($search = '', $product = '', $tags = [], $deviceId = '')
+    {
+        $method = 'GET';
+        $params = [
+            'search' => $search,
+            'product' => $product,
+            'tags' => $tags,
+            'deviceId' => $deviceId
+        ];
+        return request($this->url, $params, $method);
     }
+
+
+    /**
+     * 解绑设备
+     * @param $deviceIds
+     * @return array ['code'=>0,'msg'=>"成功"]
+     */
+    public function delete($deviceIds)
+    {
+        $method = 'DELETE';
+        return request($this->url, $deviceIds, $method);
+    }
+
 }

@@ -31,13 +31,18 @@ class Auth
     public function __invoke()
     {
         // TODO: Implement __invoke() method.
+        $timestamp = time();
         $url = BASE_URL.'accessToken';
-        $params = array_merge($this->authority->getAuthorityData(), ['timestamp' => time()]);
+        $params = array_merge($this->authority->getAuthorityData(), ['timestamp' => $timestamp]);
         $responseRes = $this->request->request($url, $params);
         $responseResArr = $this->response->response($responseRes);
         if (!isset($responseResArr['code']) || $responseResArr['code'] > 0 || $responseResArr['code'] < 0) {
             return [];
         }
-        return $responseResArr['data'];
+        $authData = $responseResArr['data'];
+        $token = new Token();
+        $authData['outTime'] = $timestamp + $authData['expiresIn'];
+        $token->setToken($authData);
+        return $authData;
     }
 }
