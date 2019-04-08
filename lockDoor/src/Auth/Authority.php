@@ -5,7 +5,7 @@ namespace LockDoor\Auth;
 
 use LockDoor\LockDoor;
 
-class Authority implements Auth
+class Authority implements IAuth
 {
     use LockDoor;
 
@@ -25,14 +25,14 @@ class Authority implements Auth
     public function makeSign()
     {
         $this->key = $this->getKey();
-        $data = sha1(json_encode(['appId' => self::APPID, 'salt' => self::SALT]));
+        $data = sha1(json_encode(['appId' => self::APP_ID, 'salt' => self::SALT]));
         $this->sign = $this->pkcs5(openssl_encrypt($data, self::METHOD, $this->key));
 
     }
 
     public function getKey()
     {
-        $this->key = substr(sha1(self::APPSECRET), 0, 16);
+        $this->key = substr(sha1(self::APP_SECRET), 0, 16);
     }
 
     public static function getInstance()

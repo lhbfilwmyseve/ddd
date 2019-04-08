@@ -3,10 +3,10 @@
 namespace LockDoor\Auth;
 
 
-interface Auth
+interface iAuth
 {
-    const APPID = '';
-    const APPSECRET = '';
+    const APP_ID = '';
+    const APP_SECRET = '';
     const SALT = '';
     const METHOD = 'AES-128-CBC';
 }
