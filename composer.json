@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "require": {
     "php": ">7.1",
-    "ext-json": "*",
     "ext-openssl": "*",
     "guzzlehttp/guzzle": "6.3.3",
     "monolog/monolog": "1.24.0",
-    "phpunit/phpunit":"8.1.2"
+    "phpunit/phpunit":"8.1.2",
+    "ext-json": "*",
+    "ext-curl": "*"
   },
   "autoload": {
     "psr-4": {
