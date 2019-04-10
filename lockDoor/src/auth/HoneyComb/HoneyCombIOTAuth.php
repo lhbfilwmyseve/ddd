@@ -22,9 +22,9 @@ class HoneyCombIOTAuth extends Auth
 
     public $appSecret = 'tbkd1m99bvoASfeOK5kmaWHyPoAYlHEh';
 
-    public $salt = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
+    public $salt = '';
 
-    public $timestamp = 1554877124;
+    public $timestamp;
 
     public $sign;
 
@@ -51,20 +51,12 @@ class HoneyCombIOTAuth extends Auth
         ];
         ksort($arr);
         $arrData = sha1(json_encode($arr));
-        echo 'jsonData  '.json_encode($arr);
-        echo PHP_EOL;
-        echo 'arrData   '.$arrData;
-        echo PHP_EOL;
         $this->sign = $this->String2Hex($this->make($this->Hex2String($arrData)));
-        echo 'sign  '.$this->sign;
-        echo PHP_EOL;
     }
 
     public function makeSecret()
     {
         $this->secret = $this->Hex2String(substr(sha1($this->appSecret), 0, 32));
-        echo 'Secret    '.substr(sha1($this->appSecret), 0, 32);
-        echo PHP_EOL;
     }
 
     /**
@@ -73,14 +65,6 @@ class HoneyCombIOTAuth extends Auth
      */
     public function __invoke()
     {
-        echo '$time   '.$this->timestamp;
-        echo PHP_EOL;
-        echo 'secret   '.$this->secret;
-        echo PHP_EOL;
-        echo 'salt   '.$this->salt;
-        echo PHP_EOL;
-        echo 'sign   '.$this->sign;
-        echo PHP_EOL;
         $base_uri = 'https://www.fengchaoiot.com';
         $uri = '/api/accessToken';
         $bodyArr = [
@@ -89,16 +73,14 @@ class HoneyCombIOTAuth extends Auth
             'timestamp' => $this->timestamp,
             'sign' => $this->sign
         ];
-        echo json_encode($bodyArr);
-        echo "\n";
         $params['headers'] = [
-            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
             'X-Accept-Version' => 'beehive.v1'
         ];
-//        $params['body'] = \GuzzleHttp\json_encode($bodyArr);
-//        $params['debug'] = true;
-//        $params['http_errors'] = false;
-        $response = $this->request($base_uri, $uri, $bodyArr);
+        $params['body'] = json_encode($bodyArr);
+        $params['debug'] = false;
+        $params['http_errors'] = false;
+        $response = $this->request($base_uri, $uri, $params);
         return $response;
     }
 }
