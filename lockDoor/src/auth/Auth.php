@@ -39,5 +39,5 @@ abstract class Auth
      * 加密后得请求
      * @return mixed
      */
-    abstract function request();
+//    abstract function request();
 }
