@@ -9,12 +9,36 @@
 
 namespace LockDoor\Request;
 
+use GuzzleHttp\Client;
 
-class LockDoorRequest implements ILockDoorRequest
+trait LockDoorRequest
 {
-    public function request($url,$params = [],$method = 'POST')
+    /**
+     * @param $base_url
+     * @param $uri
+     * @param array $params
+     * @param string $method
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function request($base_url, $uri, $params = [], $method = 'POST')
     {
         // TODO: Implement request() method.
-        return '';
+        $config = [
+            'base_uri' => $base_url,
+        ];
+        $client = new Client($config);
+        try {
+            $response = $client->request($method, $uri, $params);
+            if ($response->getStatusCode() == 200) {
+                return $response;
+            }else{
+                return [];
+            }
+        } catch (\Exception $exception) {
+            return [];
+        }
+
+
     }
 }

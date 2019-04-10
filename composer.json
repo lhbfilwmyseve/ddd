@@ -6,7 +6,8 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "guzzlehttp/guzzle": "6.3.3",
-    "monolog/monolog": "1.24.0"
+    "monolog/monolog": "1.24.0",
+    "phpunit/phpunit":"8.1.2"
   },
   "autoload": {
     "psr-4": {

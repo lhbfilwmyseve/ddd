@@ -2,47 +2,42 @@
 /**
  * Created by LHB
  * User: LHB
- * Date: 2019/4/8
- * Time: 9:55
+ * Date: 2019/4/10
+ * Time: 9:59
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\Auth;
+namespace LockDoor\auth;
 
-use LockDoor\Request\LockDoorRequest;
-use LockDoor\Response\LockDoorResponse;
 
-class Auth
+abstract class Auth
 {
+    public $appId;
 
-    public $request;
+    public $appSecret;
 
-    public $response;
+    public $secret;
 
-    public $authority;
+    public $method = 'AES-128-ECB';
 
-    function __construct()
+    public $options = OPENSSL_RAW_DATA;
+
+    public $iv = '';
+
+
+    /**
+     * 返回加密后得结果
+     * @param $data
+     * @return string
+     */
+    public function make($data)
     {
-        $this->request = new LockDoorRequest();
-        $this->response = new LockDoorResponse();
-        $this->authority = Authority::getInstance();
+        return openssl_encrypt($data, $this->method, $this->secret, $this->options, $this->iv);
     }
 
-    public function __invoke()
-    {
-        // TODO: Implement __invoke() method.
-        $timestamp = time();
-        $url = BASE_URL.'accessToken';
-        $params = array_merge($this->authority->getAuthorityData(), ['timestamp' => $timestamp]);
-        $responseRes = $this->request->request($url, $params);
-        $responseResArr = $this->response->response($responseRes);
-        if (!isset($responseResArr['code']) || $responseResArr['code'] > 0 || $responseResArr['code'] < 0) {
-            return [];
-        }
-        $authData = $responseResArr['data'];
-        $token = new Token();
-        $authData['outTime'] = $timestamp + $authData['expiresIn'];
-        $token->setToken($authData);
-        return $authData;
-    }
+    /**
+     * 加密后得请求
+     * @return mixed
+     */
+    abstract function request();
 }
