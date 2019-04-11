@@ -7,12 +7,13 @@
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\auth\HoneyComb;
+namespace LockDoor\Auth\HoneyComb;
 
 
-use LockDoor\auth\Auth;
+use LockDoor\Auth\Auth;
 use LockDoor\LockDoor;
 use LockDoor\Request\LockDoorRequest;
+use LockDoor\Token\HoneyComb\HoneCombIOTToken as Token;
 
 class HoneyCombIOTAuth extends Auth
 {
@@ -27,6 +28,8 @@ class HoneyCombIOTAuth extends Auth
     public $timestamp;
 
     public $sign;
+
+    public $token;
 
     function __construct()
     {
@@ -81,6 +84,10 @@ class HoneyCombIOTAuth extends Auth
         $params['debug'] = false;
         $params['http_errors'] = false;
         $response = $this->request($base_uri, $uri, $params);
+        if ($response->getStatusCode() == 200){
+            $this->token = new Token();
+            $this->token->setToken($response->getBody()->getContents());
+        }
         return $response;
     }
 }

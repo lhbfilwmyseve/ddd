@@ -7,7 +7,7 @@
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\auth;
+namespace LockDoor\Auth;
 
 
 abstract class Auth

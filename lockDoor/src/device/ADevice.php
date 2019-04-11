@@ -9,8 +9,8 @@
 
 namespace LockDoor\Device;
 
-use LockDoor\Auth\Auth;
-use LockDoor\Auth\Token;
+use LockDoor\Auth\HoneyComb\HoneyCombIOTAuth as Auth;
+use LockDoor\Token\HoneyComb\HoneCombIOTToken as Token;
 
 abstract class ADevice
 {
@@ -22,11 +22,15 @@ abstract class ADevice
 
     public $deviceType = 'MU6610-BC-A';
 
-   public function __construct()
+    public function __construct()
     {
         $this->isAccess();
     }
 
+    /**
+     * @return $this|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function isAccess()
     {
         $token = new Token();
