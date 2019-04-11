@@ -16,8 +16,7 @@
     },
     "files": [
       "lockDoor/src/config/config.php",
-      "lockDoor/src/config/function.php",
-      "lockDoor/src/config/token.txt"
+      "lockDoor/src/config/function.php"
     ]
   }
 }

@@ -23,7 +23,6 @@ trait LockDoorRequest
      */
     public function request($base_url, $uri, $params = [], $method = 'POST')
     {
-        //todo guzzle post 500 curl OK ???
         $config = [
             'base_uri' => $base_url,
 //            'timeout' => 2.0
