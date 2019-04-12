@@ -16,17 +16,44 @@ use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 class HoneCombIOTTokenTest extends TestCase
 {
     public $token;
+
     function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         $this->token = new HoneCombIOTToken();
         parent::__construct($name, $data, $dataName);
     }
 
-    public function testTokenHasAccessTokenKey(){
-        $this->assertArrayHasKey('accessToken',$this->token->getToken(true));
+    public function testGetToken()
+    {
+        $tokenArr = $this->token->getToken(true);
+        $this->assertIsArray($tokenArr);
+        return $tokenArr;
     }
 
-    public function testTokenHasExpiresIn(){
-        $this->assertArrayHasKey('exporesIn',$this->token->getToken(true));
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasAccessTokenKey(array $tokenArr)
+    {
+        $this->assertArrayHasKey('accessToken', $tokenArr);
     }
+
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasExpiresInKey(array $tokenArr)
+    {
+        $this->assertArrayHasKey('expiresIn', $tokenArr);
+    }
+
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasTimestampKey(array $tokenArr){
+        $this->assertArrayHasKey('timestamp',$tokenArr);
+    }
+
 }

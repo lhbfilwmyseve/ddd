@@ -91,7 +91,7 @@ class HoneyCombIOTAuth extends Auth
                 $tokenData = $responseArr['data'];
                 $tokenData['timestamp'] = $this->timestamp;
                 $this->token = new Token();
-                $this->token->setToken($tokenData);
+                $this->token->setToken(json_encode($tokenData));
             }
         }
         return $response;
