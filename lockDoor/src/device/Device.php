@@ -34,13 +34,14 @@ abstract class Device
     abstract public function bind($secret = '', array $tags = []);
 
     /**
+     * @param array $options
      * @param string $search
      * @param string $product
      * @param string $deviceId
      * @param array $tags
      * @return mixed
      */
-    abstract public function get(string $search = '', string $product = '', string $deviceId = '', array $tags = []);
+    abstract public function get(array $options = [],string $search = '', string $product = '', string $deviceId = '', array $tags = []);
 
     /**
      *
