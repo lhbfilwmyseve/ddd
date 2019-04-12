@@ -1,0 +1,17 @@
+<phpunit bootstrap="/home/vagrant/code/DingDong-php/bootstrap.php">
+    <testsuites>
+        <testsuite name="post honeycomb accessToken">
+            <directory>/home/vagrant/code/DingDong-php/lockDoor/unitTest</directory>
+            <file>/home/vagrant/code/DingDong-php/lockDoor/unitTest/HoneCombIOTTokenTest.php</file>
+            <exclude>/path/to/exclude</exclude>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/home/vagrant/code/DingDong-php/lockDoor/testExclude</directory>
+            <exclude>
+                <directory suffix=".php">/home/vagrant/code/DingDong-php/lockDoor/testExclude</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

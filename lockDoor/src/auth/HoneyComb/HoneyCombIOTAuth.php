@@ -84,9 +84,15 @@ class HoneyCombIOTAuth extends Auth
         $params['debug'] = true;
         $params['http_errors'] = true;
         $response = $this->request($base_uri, $uri, $params);
-        if ($response->getStatusCode() == 200){
-            $this->token = new Token();
-            $this->token->setToken($response->getBody()->getContents());
+        if ($response->getStatusCode() == 200) {
+            $responseContent = $response->getBody()->getContents();
+            $responseArr = json_decode($responseContent, true);
+            if (isset($responseArr['code']) || $responseArr['code'] == 0) {
+                $tokenData = $responseArr['data'];
+                $tokenData['timestamp'] = $this->timestamp;
+                $this->token = new Token();
+                $this->token->setToken($tokenData);
+            }
         }
         return $response;
     }

@@ -12,7 +12,8 @@
   },
   "autoload": {
     "psr-4": {
-      "LockDoor\\": "lockDoor/src"
+      "LockDoor\\": "lockDoor/src",
+      "LockDoorTest\\": "lockDoor/unitTest"
     },
     "files": [
       "lockDoor/src/config/config.php",
