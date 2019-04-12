@@ -10,6 +10,7 @@
 namespace LockDoor\Token\HoneyComb;
 
 
+use LockDoor\Auth\HoneyComb\HoneyCombIOTAuth;
 use LockDoor\Token\Token;
 
 /**
@@ -34,7 +35,12 @@ class HoneCombIOTToken extends Token
             return $tokenArr;
         }
         if ($tokenArr['timestamp'] + $tokenArr['expiresIn'] >= time()) {
-            return 'token was expired';
+            $auth = new HoneyCombIOTAuth();
+            $response = $auth();
+            if ($response == 200) {
+                $token = json_decode($response->getBody()->getContents(), true);
+                return $token['data'][$this->accessToken];
+            }
         }
         return $tokenArr[$this->accessToken];
     }
