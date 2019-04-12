@@ -37,30 +37,23 @@ class HoneCombIOTDevice extends Device
      */
     public function bind($secret = '', array $tags = [])
     {
-        echo json_encode([
-            'name' => $this->deviceName,
-            'secret' => '0028004A5353510D20393035|A5B3C2950117',
-            'tags' => $tags
-        ]);
         if (!$secret) {
             return 'secret not found';
         }
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $requestParams['body'] = json_encode([
             'name' => $this->deviceName,
-            'secret' => '0028004A5353510D20393035|A5B3C2950117',
+            'secret' => $secret,
             'tags' => $tags
         ]);
         $requestParams['debug'] = true;
         $response = $this->request($this->baseUri, $this->uri, $requestParams);
-         var_dump($response);
-        echo PHP_EOL;
-        exit;
-//        return $response;
+        return $response;
     }
 
-
-
+    /**
+     * 蜂巢IOT token
+     */
     public function getToken()
     {
         $token = new HoneCombIOTToken();
