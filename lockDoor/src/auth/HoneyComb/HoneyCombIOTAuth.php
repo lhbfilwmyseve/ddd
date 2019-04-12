@@ -81,7 +81,7 @@ class HoneyCombIOTAuth extends Auth
             'X-Accept-Version' => 'beehive.v1'
         ];
         $params['body'] = json_encode($bodyArr);
-        $params['debug'] = true;
+        $params['debug'] = false;
         $params['http_errors'] = true;
         $response = $this->request($base_uri, $uri, $params);
         if ($response->getStatusCode() == 200) {
