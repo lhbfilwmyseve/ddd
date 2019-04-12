@@ -40,7 +40,7 @@ abstract class Device
      * @param array $tags
      * @return mixed
      */
-    abstract public function get(string $search, string $product, string $deviceId, array $tags);
+    abstract public function get(string $search = '', string $product = '', string $deviceId = '', array $tags = []);
 
     /**
      *

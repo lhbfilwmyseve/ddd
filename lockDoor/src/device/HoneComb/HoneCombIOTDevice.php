@@ -72,7 +72,7 @@ class HoneCombIOTDevice extends Device
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get(string $search, string $product, string $deviceId, array $tags)
+    public function get(string $search = '', string $product = '', string $deviceId = '', array $tags = [])
     {
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [
