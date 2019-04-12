@@ -28,6 +28,19 @@ class HoneCombIOTDevice extends Device
         $this->getToken();
     }
 
+
+    /**
+     * 蜂巢IOT token
+     */
+    public function getToken()
+    {
+        $token = new HoneCombIOTToken();
+        $this->accessToken = $token->getToken();
+        $this->authorization = [
+            'Authorization' => 'Bearer ' . $this->accessToken
+        ];
+    }
+
     /**
      * 绑定设备
      * @param string $secret
@@ -52,18 +65,6 @@ class HoneCombIOTDevice extends Device
     }
 
     /**
-     * 蜂巢IOT token
-     */
-    public function getToken()
-    {
-        $token = new HoneCombIOTToken();
-        $this->accessToken = $token->getToken();
-        $this->authorization = [
-            'Authorization'=>'Bearer '.$this->accessToken
-        ];
-    }
-
-    /**
      * @param string $search
      * @param string $product
      * @param string $deviceId
@@ -73,16 +74,15 @@ class HoneCombIOTDevice extends Device
      */
     public function get(string $search, string $product, string $deviceId, array $tags)
     {
-        $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS,$this->authorization);
+        $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [
-            'search'=>$search,
-            'product'=>$product,
-            'deviceId'=>$deviceId,
-            'tags'=>$tags
+            'search' => $search,
+            'product' => $product,
+            'deviceId' => $deviceId,
+            'tags' => $tags
         ];
         $requestParams['body'] = json_encode($bodyArr);
-        // TODO: Implement get() method.
-        $response = $this->request($this->baseUri,$this->uri,$requestParams,'GET');
+        $response = $this->request($this->baseUri, $this->uri, $requestParams, 'GET');
         return $response;
     }
 
@@ -91,9 +91,13 @@ class HoneCombIOTDevice extends Device
      * 删除设备
      * @param array $deviceIds
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function delete(array $deviceIds)
     {
-        // TODO: Implement delete() method.
+        $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
+        $requestParams['body'] = json_encode($deviceIds);
+        $response = $this->request($this->baseUri, $this->uri, $requestParams, 'DELETE');
+        return $response;
     }
 }
