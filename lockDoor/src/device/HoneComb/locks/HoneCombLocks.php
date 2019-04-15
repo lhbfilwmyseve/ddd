@@ -90,19 +90,44 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
 
     /**
      * 添加密码
+     * @param $type
+     * @param $password
+     * @param $startTime
+     * @param $endTime
+     * @param $userId
+     * @param $weeks
      * @return mixed
      */
-    abstract public function addPasswords();
+    abstract public function addPasswords($type,$password,$startTime,$endTime,$userId,array $weeks);
 
     /**
      * 添加卡片
+     * @param $type
+     * @param $cardNumber
+     * @param $startTime
+     * @param $endTime
+     * @param $userId
+     * @param $weeks
      * @return mixed
      */
-    abstract public function addCards();
+    abstract public function addCards($type,$cardNumber,$startTime,$endTime,$userId,array $weeks);
 
     /**
      * 添加指纹
+     * @param $startTime
+     * @param $endTime
+     * @param int $userId
+     * @param array $fingerprint
      * @return mixed
      */
-    abstract public function addFingers();
+    abstract public function addFingers($startTime,$endTime,$userId = 0,array $fingerprint = []);
+
+    /**
+     * 获取设备权限
+     * @param $operate
+     * @param $userId
+     * @param $authId
+     * @return mixed
+     */
+    abstract public function authorities($operate,$userId = '',$authId= '');
 }
