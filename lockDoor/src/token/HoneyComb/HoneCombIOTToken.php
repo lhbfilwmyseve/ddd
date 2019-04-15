@@ -31,15 +31,14 @@ class HoneCombIOTToken extends Token
         if (!in_array($this->accessToken, $tokenKeys) || !in_array($this->expiresIn, $tokenKeys)) {
             return 'token is wrong';
         }
-        //todo ???
-//        if ($tokenArr['timestamp'] + $tokenArr['expiresIn'] >= time()) {
-//            $auth = new HoneyCombIOTAuth();
-//            $response = $auth();
-//            if ($response->getStatusCode() == 200) {
-//                $token = json_decode($response->getBody()->getContents(), true);
-//                return $token['data'][$this->accessToken];
-//            }
-//        }
+        if ($tokenArr['timestamp'] + $tokenArr['expiresIn'] <= time()) {
+            $auth = new HoneyCombIOTAuth();
+            $response = $auth();
+            if ($response->getStatusCode() == 200) {
+                $token = json_decode($response->getBody()->getContents(), true);
+                $tokenArr =  $token['data'];
+            }
+        }
         if ($test == true) {
             return $tokenArr;
         }
