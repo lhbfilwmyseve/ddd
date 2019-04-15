@@ -56,7 +56,7 @@ class HoneCombIOTDevice extends Device
      * 绑定设备
      * @param string $name
      * @param string $secret
-     * @param string $tags
+     * @param array $tags
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -71,10 +71,8 @@ class HoneCombIOTDevice extends Device
             'secret' => $secret,
             'tags' => $tags
         ]);
-        echo $requestParams['body'];
-        echo PHP_EOL;
-        $requestParams['debug'] = true;
-        $requestParams['http_errors'] = true;
+        $requestParams['debug'] = false;
+        $requestParams['http_errors'] = false;
         $response = $this->request($this->baseUri, $this->uri, $requestParams);
         return $response;
     }
