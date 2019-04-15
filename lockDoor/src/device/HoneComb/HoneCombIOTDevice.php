@@ -13,7 +13,7 @@ namespace LockDoor\device\HoneComb;
 use LockDoor\Device\Device;
 use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 
-class HoneCombIOTDevice extends Device
+abstract class HoneCombIOTDevice extends Device
 {
     public $deviceName = 'MU6610-BC-A';
 
