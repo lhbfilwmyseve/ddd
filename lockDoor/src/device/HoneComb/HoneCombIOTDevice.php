@@ -15,7 +15,6 @@ use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 
 abstract class HoneCombIOTDevice extends Device
 {
-    public $deviceName = 'MU6610-BC-A';
 
     public $baseUri = BASE_URL;
 
