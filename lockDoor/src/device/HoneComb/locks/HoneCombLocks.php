@@ -87,4 +87,22 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
         );
         return $this->request($this->baseUri, $this->uri, $requestParams);
     }
+
+    /**
+     * 添加密码
+     * @return mixed
+     */
+    abstract public function addPasswords();
+
+    /**
+     * 添加卡片
+     * @return mixed
+     */
+    abstract public function addCards();
+
+    /**
+     * 添加指纹
+     * @return mixed
+     */
+    abstract public function addFingers();
 }
