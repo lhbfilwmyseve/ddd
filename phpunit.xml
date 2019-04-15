@@ -1,5 +1,12 @@
 <phpunit bootstrap="/home/vagrant/code/DingDong-php/bootstrap.php">
     <testsuites>
+        <testsuite name="test honeycomb devices">
+            <directory>/home/vagrant/code/DingDong-php/lockDoor/unitTest</directory>
+            <file>/home/vagrant/code/DingDong-php/lockDoor/unitTest/HoneCombIOTDeviceTest.php</file>
+            <exclude>/home/vagrant/code/DingDong-php/lockDoor/testExclude</exclude>
+        </testsuite>
+    </testsuites>
+    <testsuites>
         <testsuite name="getLocal honeycomb accessToken">
             <directory>/home/vagrant/code/DingDong-php/lockDoor/unitTest</directory>
             <file>/home/vagrant/code/DingDong-php/lockDoor/unitTest/HoneCombIOTTokenTest.php</file>

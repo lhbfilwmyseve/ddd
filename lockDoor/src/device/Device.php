@@ -27,11 +27,12 @@ abstract class Device
 
     /**
      * 绑定设备
-     * @param $secret
+     * @param string $name
+     * @param string $secret
      * @param array $tags
      * @return mixed
      */
-    abstract public function bind($secret = '', array $tags = []);
+    abstract public function bind($name = '',$secret = '', array $tags = []);
 
     /**
      * @param array $options

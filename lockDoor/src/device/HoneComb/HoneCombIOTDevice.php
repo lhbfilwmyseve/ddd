@@ -54,23 +54,27 @@ class HoneCombIOTDevice extends Device
 
     /**
      * 绑定设备
+     * @param string $name
      * @param string $secret
-     * @param array $tags
+     * @param string $tags
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function bind($secret = '', array $tags = [])
+    public function bind($name = '', $secret = '', array $tags = [])
     {
-        if (!$secret) {
-            return 'secret not found';
+        if (!$name || !$secret) {
+            return 'device name Or device secret is not found';
         }
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $requestParams['body'] = json_encode([
-            'name' => $this->deviceName,
+            'name' => $name,
             'secret' => $secret,
             'tags' => $tags
         ]);
-        $requestParams['debug'] = false;
+        echo $requestParams['body'];
+        echo PHP_EOL;
+        $requestParams['debug'] = true;
+        $requestParams['http_errors'] = true;
         $response = $this->request($this->baseUri, $this->uri, $requestParams);
         return $response;
     }
@@ -121,8 +125,6 @@ class HoneCombIOTDevice extends Device
     {
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $requestParams['body'] = json_encode($deviceIds);
-        echo $this->uri;
-        exit;
         $response = $this->request($this->baseUri, $this->uri, $requestParams, 'DELETE');
         return $response;
     }
