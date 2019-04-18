@@ -7,7 +7,7 @@
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\device\HoneComb;
+namespace LockDoor\Device\HoneComb;
 
 
 class HoneCombIOTDeviceTags extends HoneCombIOTDevice

@@ -7,9 +7,10 @@
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\device\HoneComb\locks;
+namespace LockDoor\device\HoneComb\Locks\BlueLocks;
 
 
+use LockDoor\device\HoneComb\locks\HoneCombLocks;
 use LockDoor\LockDoor;
 use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 

@@ -7,10 +7,10 @@
  * Email:498807233@qq.com
  */
 
-namespace LockDoor\device\HoneComb\locks;
+namespace LockDoor\Device\HoneComb\Locks;
 
 
-use LockDoor\device\HoneComb\HoneCombIOTDevice;
+use LockDoor\Device\HoneComb\HoneCombIOTDevice;
 
 abstract class HoneCombLocks extends HoneCombIOTDevice
 {
