@@ -13,7 +13,7 @@ namespace LockDoor\Device\HoneComb;
 use LockDoor\Device\Device;
 use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 
-abstract class HoneCombIOTDevice extends Device
+class HoneCombIOTDevice extends Device
 {
 
     public $baseUri = BASE_URL;
