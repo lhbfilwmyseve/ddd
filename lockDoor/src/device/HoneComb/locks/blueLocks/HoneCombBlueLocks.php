@@ -36,7 +36,30 @@ class HoneCombBlueLocks extends HoneCombLocks
      */
     public function addPasswords($type, $password, $startTime, $endTime, $userId, array $weeks)
     {
-        // TODO: Implement addPasswords() method.
+        /**
+         * {
+         * "code": 0,
+         * "msg": "成功",
+         * "data": {
+         * "command": "3QEDMNm/GCPieI6zOejpko2UArZSv63I7ZmQLIqxL70j7zco+gP12U2dEF5KtngnoGyQqg==",
+         * "source": {
+         * "passwordId": 1,
+         * "type": "PLAIN",
+         * "password": "258147",
+         * "userId": 1,
+         * "startTime": "2019-04-22 15:42:00",
+         * "endTime": "2019-04-22 15:50:00",
+         * "weeks": [
+         * "TUESDAY",
+         * "WEDNESDAY"
+         * ],
+         * "status": "ADDING",
+         * "cmdId": "5cbd70d07625f50001956d26",
+         * "authId": "5cbd70d07625f50001956d25"
+         * }
+         * }
+         * }
+         */
         //$type PLAIN普通密码 CYCLE周期密码 MANAGER管理密码
         $this->uri = '/ble-locks/' . $this->deviceId . '/passwords';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
@@ -132,8 +155,9 @@ class HoneCombBlueLocks extends HoneCombLocks
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function uploadBlueRes($commandId){
-        $this->uri = '/ble-locks/' . $this->deviceId . '/commands/'.$commandId;
+    public function uploadBlueRes($commandId)
+    {
+        $this->uri = '/ble-locks/' . $this->deviceId . '/commands/' . $commandId;
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         return $this->request($this->baseUri, $this->uri, $requestParams);
     }
@@ -144,15 +168,16 @@ class HoneCombBlueLocks extends HoneCombLocks
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function openLockDoor($userId = 0){
+    public function openLockDoor($userId = 0)
+    {
         $this->uri = '/ble-locks/' . $this->deviceId . '/key';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [];
-        if ($userId || $userId === 0){
+        if ($userId || $userId === 0) {
             $bodyArr['userId'] = $userId;
         }
         $requestParams['query'] = $bodyArr;
-        return $this->request($this->baseUri, $this->uri, $requestParams,'GET');
+        return $this->request($this->baseUri, $this->uri, $requestParams, 'GET');
     }
 
     /**
@@ -164,17 +189,18 @@ class HoneCombBlueLocks extends HoneCombLocks
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function setting($brdName = '',int $brdInterval = 0,int $brdLevel = 100,$switchMac = ''){
+    public function setting($brdName = '', int $brdInterval = 0, int $brdLevel = 100, $switchMac = '')
+    {
         $this->uri = '/ble-locks/' . $this->deviceId . '/setting';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [
-            'brdInterval'=>$brdInterval,
-            'brdLevel'=>$brdLevel
+            'brdInterval' => $brdInterval,
+            'brdLevel' => $brdLevel
         ];
-        if ($brdName){
+        if ($brdName) {
             $bodyArr['brdName'] = $brdName;
         }
-        if ($switchMac){
+        if ($switchMac) {
             $bodyArr['switchMac'] = $switchMac;
         }
         $requestParams['body'] = json_encode($bodyArr);
@@ -185,10 +211,11 @@ class HoneCombBlueLocks extends HoneCombLocks
      * 同步蓝牙锁的时间
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function syncTime(){
+    public function syncTime()
+    {
         $this->uri = '/ble-locks/' . $this->deviceId . '/time';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
-        return $this->request($this->baseUri, $this->uri, $requestParams,'GET');
+        return $this->request($this->baseUri, $this->uri, $requestParams, 'GET');
     }
 
     /**
@@ -196,10 +223,11 @@ class HoneCombBlueLocks extends HoneCombLocks
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function syncEvents(){
+    public function syncEvents()
+    {
         $this->uri = '/ble-locks/' . $this->deviceId . '/events';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
-        return $this->request($this->baseUri, $this->uri, $requestParams,'GET');
+        return $this->request($this->baseUri, $this->uri, $requestParams, 'GET');
     }
 
     /**
@@ -208,11 +236,12 @@ class HoneCombBlueLocks extends HoneCombLocks
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function uploadEvents(string $eventData){
+    public function uploadEvents(string $eventData)
+    {
         $this->uri = '/ble-locks/' . $this->deviceId . '/events';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $requestParams['body'] = json_encode([
-            'eventData'=>$this->String2Hex($eventData)
+            'eventData' => $this->String2Hex($eventData)
         ]);
         return $this->request($this->baseUri, $this->uri, $requestParams);
     }
