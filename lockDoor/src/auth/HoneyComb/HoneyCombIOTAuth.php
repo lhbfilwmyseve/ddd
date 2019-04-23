@@ -19,9 +19,9 @@ class HoneyCombIOTAuth extends Auth
 {
     use LockDoor, LockDoorRequest;
 
-    public $appId = '5ca5cf767625f500014c6186';
+    public $appId = '';
 
-    public $appSecret = 'tbkd1m99bvoASfeOK5kmaWHyPoAYlHEh';
+    public $appSecret = '';
 
     public $salt = '';
 
