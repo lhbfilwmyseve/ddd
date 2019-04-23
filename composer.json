@@ -1,0 +1,23 @@
+{
+  "name": "hbliu/lock",
+  "version": "0.0.1",
+  "require": {
+    "php": ">7.1",
+    "ext-openssl": "*",
+    "guzzlehttp/guzzle": "6.3.3",
+    "monolog/monolog": "1.24.0",
+    "phpunit/phpunit":"8.1.2",
+    "ext-json": "*",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "LockDoor\\": "lockDoor/src",
+      "LockDoorTest\\": "lockDoor/unitTest"
+    },
+    "files": [
+      "lockDoor/src/config/config.php",
+      "lockDoor/src/config/function.php"
+    ]
+  }
+}
