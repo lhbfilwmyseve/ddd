@@ -10,7 +10,6 @@
 namespace LockDoor\Token\HoneyComb;
 
 
-use LockDoor\Auth\HoneyComb\HoneyCombIOTAuth;
 use LockDoor\Token\Token;
 
 /**

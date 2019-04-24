@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":166:{a:2:{s:7:"defects";a:1:{s:47:"LockDoorTest\HoneCombIOTTokenTest::testGetToken";i:5;}s:5:"times";a:1:{s:47:"LockDoorTest\HoneCombIOTTokenTest::testGetToken";d:7.052;}}}

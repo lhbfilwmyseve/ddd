@@ -10,11 +10,9 @@
 namespace LockDoor\Auth\HoneyComb;
 
 
-use Couchbase\Exception;
 use LockDoor\Auth\Auth;
 use LockDoor\LockDoor;
 use LockDoor\Request\LockDoorRequest;
-use LockDoor\Token\HoneyComb\HoneCombIOTToken as Token;
 
 class HoneyCombIOTAuth extends Auth
 {

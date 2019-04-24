@@ -11,7 +11,6 @@ namespace LockDoorTest;
 
 use LockDoor\Auth\HoneyComb\HoneyCombIOTAuth;
 use PHPUnit\Framework\TestCase;
-
 use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 
 class HoneCombIOTTokenTest extends TestCase
@@ -22,15 +21,18 @@ class HoneCombIOTTokenTest extends TestCase
     {
         $auth = new HoneyCombIOTAuth('5ca5cf767625f500014c6186','tbkd1m99bvoASfeOK5kmaWHyPoAYlHEh');
         $this->token = new HoneCombIOTToken($auth);
+        $this->token = new HoneCombIOTToken();
         parent::__construct($name, $data, $dataName);
     }
 
     public function testGetToken()
     {
+
         $tokenArr = json_decode($this->token->getToken(true),true);
         echo PHP_EOL;
         echo $tokenArr;
         echo PHP_EOL;
+        $tokenArr = $this->token->getToken(true);
         $this->assertIsArray($tokenArr);
         return $tokenArr;
     }
