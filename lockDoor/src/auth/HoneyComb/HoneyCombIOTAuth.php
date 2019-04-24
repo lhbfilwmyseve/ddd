@@ -10,6 +10,7 @@
 namespace LockDoor\Auth\HoneyComb;
 
 
+use Couchbase\Exception;
 use LockDoor\Auth\Auth;
 use LockDoor\LockDoor;
 use LockDoor\Request\LockDoorRequest;
@@ -85,17 +86,37 @@ class HoneyCombIOTAuth extends Auth
         $params['body'] = json_encode($bodyArr);
         $params['debug'] = false;
         $params['http_errors'] = true;
-        $response = $this->request($base_uri, $uri, $params);
-        if ($response->getStatusCode() == 200) {
-            $responseContent = $response->getBody()->getContents();
-            $responseArr = json_decode($responseContent, true);
-            if (isset($responseArr['code']) || $responseArr['code'] == 0) {
-                $tokenData = $responseArr['data'];
-                $tokenData['timestamp'] = $this->timestamp;
-                $this->token = new Token();
-                $this->token->setToken(json_encode($tokenData));
+        try {
+            $response = $this->request($base_uri, $uri, $params);
+            if ($response->getStatusCode() == 200) {
+                $responseContent = $response->getBody()->getContents();
+                $responseArr = json_decode($responseContent, true);
+                if (isset($responseArr['code']) || $responseArr['code'] == 0) {
+                    $tokenData = $responseArr['data'];
+                    $tokenData['timestamp'] = $this->timestamp;
+                    return json_encode($tokenData);
+                }
+                throw new \Exception($responseContent);
+            } else {
+                throw new \Exception('请求状态错误 code=>' . $response->getStatusCode());
             }
+        } catch (\Exception $exception) {
+            return [
+                'code' => 202,
+                'message' => $exception->getMessage(),
+                'data' => []
+            ];
         }
-        return $response;
+
+    }
+
+    /**
+     * token验证失败后重新拉取token的实现
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function reload()
+    {
+        return $this->__invoke();
     }
 }

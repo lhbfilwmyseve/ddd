@@ -20,44 +20,56 @@ use LockDoor\Token\Token;
  */
 class HoneCombIOTToken extends Token
 {
-    public $accessToken = 'accessToken';
 
-    public $expiresIn = 'expiresIn';
+    public $tokenArr = [];
 
-    public $appId = '';
+    public $auth;
 
-    public $appSecret = '';
-
-    public function __construct($appId, $appSecret, $file = TOKEN_FILE)
+    public function __construct(object $auth, $file = TOKEN_FILE)
     {
-        $this->appId = $appId;
-        $this->appSecret = $appSecret;
+        $this->auth = $auth;
         parent::__construct($file);
     }
 
     /**
      * @param bool $test
      * @return mixed|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getToken($test = false)
     {
-        $tokenArr = parent::getToken();
-        $tokenKeys = array_keys($tokenArr);
-        if (!in_array($this->accessToken, $tokenKeys) || !in_array($this->expiresIn, $tokenKeys)) {
-            return 'token is wrong';
+        $this->tokenArr = parent::getToken();
+        return $this->voidToken();
+    }
+
+    /**
+     * 验证token是否过期
+     * @return mixed
+     */
+    public function voidToken()
+    {
+        if (empty($this->tokenArr)) {
+            return false;
         }
-        if ($tokenArr['timestamp'] + $tokenArr['expiresIn'] <= time()) {
-            $auth = new HoneyCombIOTAuth($this->appId, $this->appSecret);
-            $response = $auth();
-            if ($response->getStatusCode() == 200) {
-                $token = json_decode($response->getBody()->getContents(), true);
-                $tokenArr = $token['data'];
-            }
+        if (!isset($this->tokenArr['accessToken']) || !isset($this->tokenArr['expiresIn']) || !isset($this->tokenArr['timestamp'])) {
+            return false;
         }
-        if ($test == true) {
-            return $tokenArr;
+
+        $now = time();
+        //判断token 是否过期
+        if ($this->tokenArr['expiresIn'] + $this->tokenArr['timestamp'] <= $now) {
+            return $this->reloadToken();
         }
-        return $tokenArr[$this->accessToken];
+        return $this->tokenArr;
+    }
+
+    /**
+     * 如果token 过期  使用是方法重载token
+     * @return mixed
+     */
+    public function reloadToken()
+    {
+        $token = $this->auth->reload();
+        $this->setToken($token);
+        return $token;
     }
 }

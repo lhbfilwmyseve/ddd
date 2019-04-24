@@ -8,7 +8,8 @@
     "monolog/monolog": "1.24.0",
     "phpunit/phpunit":"8.1.2",
     "ext-json": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-couchbase": "*"
   },
   "autoload": {
     "psr-4": {

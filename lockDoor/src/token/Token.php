@@ -14,6 +14,19 @@ abstract class Token
 {
     public $file;
 
+
+    /**
+     * 验证token是否过期
+     * @return mixed
+     */
+    abstract public function voidToken();
+
+    /**
+     * 如果token 过期  使用是方法重载token
+     * @return mixed
+     */
+    abstract public function reloadToken();
+
     /**
      * 默认蜂巢token
      * Token constructor.

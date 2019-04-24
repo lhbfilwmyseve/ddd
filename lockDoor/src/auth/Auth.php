@@ -36,8 +36,8 @@ abstract class Auth
     }
 
     /**
-     * 加密后得请求
+     * token验证失败后重新拉取token的实现
      * @return mixed
      */
-//    abstract function request();
+    abstract function reload();
 }
