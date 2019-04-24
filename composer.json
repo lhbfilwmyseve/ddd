@@ -1,6 +1,5 @@
 {
   "name": "hbliu/lock",
-  "version": "0.0.1",
   "require": {
     "php": ">7.1",
     "ext-openssl": "*",
