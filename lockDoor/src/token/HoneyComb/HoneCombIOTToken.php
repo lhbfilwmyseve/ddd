@@ -24,7 +24,7 @@ class HoneCombIOTToken extends Token
 
     public $auth;
 
-    public function __construct(object $auth, $file = TOKEN_FILE)
+    public function __construct(object $auth = null, $file = TOKEN_FILE)
     {
         $this->auth = $auth;
         parent::__construct($file);

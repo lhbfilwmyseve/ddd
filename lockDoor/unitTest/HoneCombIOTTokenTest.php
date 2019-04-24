@@ -21,7 +21,6 @@ class HoneCombIOTTokenTest extends TestCase
     {
         $auth = new HoneyCombIOTAuth('5ca5cf767625f500014c6186','tbkd1m99bvoASfeOK5kmaWHyPoAYlHEh');
         $this->token = new HoneCombIOTToken($auth);
-        $this->token = new HoneCombIOTToken();
         parent::__construct($name, $data, $dataName);
     }
 

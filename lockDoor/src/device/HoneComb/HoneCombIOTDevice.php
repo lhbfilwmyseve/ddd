@@ -45,7 +45,9 @@ class HoneCombIOTDevice extends Device
     public function getToken()
     {
         $token = new HoneCombIOTToken();
-        $this->accessToken = $token->getToken();
+        $tokenString = $token->getToken();
+        $tokenArr = json_decode($tokenString, true);
+        $this->accessToken = $tokenArr['accessToken'];
         $this->authorization = [
             'Authorization' => 'Bearer ' . $this->accessToken
         ];
