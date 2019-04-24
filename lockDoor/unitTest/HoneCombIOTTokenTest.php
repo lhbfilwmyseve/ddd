@@ -27,38 +27,38 @@ class HoneCombIOTTokenTest extends TestCase
 
     public function testGetToken()
     {
-        $tokenArr = $this->token->getToken(true);
+        $tokenArr = json_decode($this->token->getToken(true),true);
         echo PHP_EOL;
         echo $tokenArr;
         echo PHP_EOL;
-//        $this->assertIsArray($tokenArr);
-//        return $tokenArr;
+        $this->assertIsArray($tokenArr);
+        return $tokenArr;
     }
 
-//    /**
-//     * @depends testGetToken
-//     * @param array $tokenArr
-//     */
-//    public function testTokenHasAccessTokenKey(array $tokenArr)
-//    {
-//        $this->assertArrayHasKey('accessToken', $tokenArr);
-//    }
-//
-//    /**
-//     * @depends testGetToken
-//     * @param array $tokenArr
-//     */
-//    public function testTokenHasExpiresInKey(array $tokenArr)
-//    {
-//        $this->assertArrayHasKey('expiresIn', $tokenArr);
-//    }
-//
-//    /**
-//     * @depends testGetToken
-//     * @param array $tokenArr
-//     */
-//    public function testTokenHasTimestampKey(array $tokenArr){
-//        $this->assertArrayHasKey('timestamp',$tokenArr);
-//    }
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasAccessTokenKey(array $tokenArr)
+    {
+        $this->assertArrayHasKey('accessToken', $tokenArr);
+    }
+
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasExpiresInKey(array $tokenArr)
+    {
+        $this->assertArrayHasKey('expiresIn', $tokenArr);
+    }
+
+    /**
+     * @depends testGetToken
+     * @param array $tokenArr
+     */
+    public function testTokenHasTimestampKey(array $tokenArr){
+        $this->assertArrayHasKey('timestamp',$tokenArr);
+    }
 
 }
