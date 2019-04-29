@@ -4,10 +4,7 @@
     "php": ">7.1",
     "ext-openssl": "*",
     "guzzlehttp/guzzle": "6.3.3",
-    "phpunit/phpunit":"8.1.2",
-    "ext-json": "*",
-    "ext-curl": "*",
-    "ext-couchbase": "*"
+    "phpunit/phpunit":"8.1.2"
   },
   "autoload": {
     "psr-4": {
