@@ -32,7 +32,7 @@ abstract class Token
      * Token constructor.
      * @param string $file
      */
-    function __construct($file = TOKEN_FILE)
+    public function __construct($file = TOKEN_FILE)
     {
         $this->file = $file;
     }
