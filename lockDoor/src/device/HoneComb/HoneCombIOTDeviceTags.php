@@ -12,9 +12,9 @@ namespace LockDoor\Device\HoneComb;
 
 class HoneCombIOTDeviceTags extends HoneCombIOTDevice
 {
-    public function __construct($deviceId)
+    public function __construct($deviceId,$token)
     {
-        parent::__construct();
+        parent::__construct($token);
         $this->uri = '/devices/' . $deviceId . '/tags';
     }
 
