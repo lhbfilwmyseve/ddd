@@ -19,9 +19,9 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
     /**
      * HoneCombLocks constructor.
      * @param $deviceID
-     * @param object $token
+     * @param  $token
      */
-    public function __construct($deviceID, object $token)
+    public function __construct($deviceID, $token)
     {
         parent::__construct($token);
         $this->deviceId = $deviceID;
