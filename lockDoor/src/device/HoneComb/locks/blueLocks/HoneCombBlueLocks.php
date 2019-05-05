@@ -18,9 +18,9 @@ class HoneCombBlueLocks extends HoneCombLocks
 {
     use LockDoor;
 
-    function __construct($deviceID)
+    function __construct($deviceID,$token)
     {
-        parent::__construct($deviceID);
+        parent::__construct($deviceID,$token);
     }
 
     /**
