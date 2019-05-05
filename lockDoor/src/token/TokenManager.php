@@ -20,6 +20,10 @@ class TokenManager implements Token
         $this->token = $token;
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     public function set($string)
     {
         return $this->token->set($string);
