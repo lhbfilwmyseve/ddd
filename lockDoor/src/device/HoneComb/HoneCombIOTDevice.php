@@ -11,7 +11,6 @@ namespace LockDoor\Device\HoneComb;
 
 
 use LockDoor\Device\Device;
-use LockDoor\Token\HoneyComb\HoneCombIOTToken;
 
 class HoneCombIOTDevice extends Device
 {
@@ -28,24 +27,39 @@ class HoneCombIOTDevice extends Device
      */
     public $options;
 
-    public function __construct()
+    /**
+     * HoneCombIOTDevice constructor.
+     * @param  $token
+     */
+    public function __construct($token)
     {
         $this->options = [
             'pageNumber' => 0,
             'pageSize' => 50
         ];
         $this->uri = '/devices';
-        $this->getToken();
+        $this->getToken($token);
     }
 
 
     /**
      * 蜂巢IOT token
+     * @param object $token
      */
-    public function getToken()
+    public function getToken($token)
     {
-        $token = new HoneCombIOTToken();
-        $tokenString = $token->getToken();
+        $tokenString = '';
+        if (is_object($token)) {
+            $tokenString = $token->getToken();
+        }
+        if (is_string($token)) {
+            $tokenString = $token;
+        }
+        if (is_array($token)) {
+            if (isset($token['token'])) {
+                $tokenString = $token['token'];
+            }
+        }
         $tokenArr = json_decode($tokenString, true);
         $this->accessToken = $tokenArr['accessToken'];
         $this->authorization = [

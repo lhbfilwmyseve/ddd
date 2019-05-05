@@ -23,7 +23,7 @@ abstract class Device
     public $accessToken = '';
 
 
-    abstract public function getToken();
+    abstract public function getToken($token);
 
     /**
      * 绑定设备

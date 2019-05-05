@@ -16,9 +16,14 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
 {
     public $deviceId;
 
-    public function __construct($deviceID)
+    /**
+     * HoneCombLocks constructor.
+     * @param $deviceID
+     * @param object $token
+     */
+    public function __construct($deviceID, object $token)
     {
-        parent::__construct();
+        parent::__construct($token);
         $this->deviceId = $deviceID;
     }
 
@@ -70,13 +75,13 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
         $this->uri = '/locks/' . $this->deviceId . '/tokens';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [];
-        if ($type){
+        if ($type) {
             $bodyArr['type'] = $type;
         }
-        if ($limitTime){
+        if ($limitTime) {
             $bodyArr['endTime'] = $limitTime;
         }
-        if ($type == 'TOKEN_OF_LIMIT' && !$limitTime){
+        if ($type == 'TOKEN_OF_LIMIT' && !$limitTime) {
             return '限时密码查询缺少截至时间';
         }
         $requestParams['body'] = json_encode(
@@ -98,7 +103,7 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
      * @param $weeks
      * @return mixed
      */
-    abstract public function addPasswords($type,$password,$startTime,$endTime,$userId,array $weeks);
+    abstract public function addPasswords($type, $password, $startTime, $endTime, $userId, array $weeks);
 
     /**
      * 添加卡片
@@ -110,7 +115,7 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
      * @param $weeks
      * @return mixed
      */
-    abstract public function addCards($type,$cardNumber,$startTime,$endTime,$userId,array $weeks);
+    abstract public function addCards($type, $cardNumber, $startTime, $endTime, $userId, array $weeks);
 
     /**
      * 添加指纹
@@ -120,7 +125,7 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
      * @param array $fingerprint
      * @return mixed
      */
-    abstract public function addFingers($startTime,$endTime,$userId = 0,array $fingerprint = []);
+    abstract public function addFingers($startTime, $endTime, $userId = 0, array $fingerprint = []);
 
     /**
      * 获取设备权限
@@ -129,5 +134,5 @@ abstract class HoneCombLocks extends HoneCombIOTDevice
      * @param $authId
      * @return mixed
      */
-    abstract public function authorities($operate,$userId = '',$authId= '');
+    abstract public function authorities($operate, $userId = '', $authId = '');
 }
