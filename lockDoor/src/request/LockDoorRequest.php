@@ -26,7 +26,8 @@ trait LockDoorRequest
         $config = [
             'base_uri' => $base_url,
 //            'timeout' => 2.0
-            'verify' => __DIR__.'/cert.pem'
+//            'verify' => __DIR__.'/cert.pem'
+            'verify' => false
         ];
         $client = new Client($config);
         try {
