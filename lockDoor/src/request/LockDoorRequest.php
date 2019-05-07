@@ -26,7 +26,7 @@ trait LockDoorRequest
         $config = [
             'base_uri' => $base_url,
 //            'timeout' => 2.0
-            'verify' => '/home/vagrant/code/DingDong-php/lockDoor/src/request/cert.pem'
+            'verify' => './cert.pem'
         ];
         $client = new Client($config);
         try {
