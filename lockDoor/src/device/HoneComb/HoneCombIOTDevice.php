@@ -60,8 +60,7 @@ class HoneCombIOTDevice extends Device
                 $tokenString = $token['token'];
             }
         }
-        $tokenArr = json_decode($tokenString, true);
-        $this->accessToken = $tokenArr['accessToken'];
+        $this->accessToken = $tokenString;
         $this->authorization = [
             'Authorization' => 'Bearer ' . $this->accessToken
         ];
