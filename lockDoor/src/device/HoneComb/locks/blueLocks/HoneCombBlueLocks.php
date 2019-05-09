@@ -18,9 +18,9 @@ class HoneCombBlueLocks extends HoneCombLocks
 {
     use LockDoor;
 
-    function __construct($deviceID,$token)
+    function __construct($deviceID, $token)
     {
-        parent::__construct($deviceID,$token);
+        parent::__construct($deviceID, $token);
     }
 
     /**
@@ -165,16 +165,24 @@ class HoneCombBlueLocks extends HoneCombLocks
     /**
      * 蓝牙开门
      * @param int $userId
+     * @param  $optType
+     * @param  $delayTime
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function openLockDoor($userId = 0)
+    public function openLockDoor($userId = 0, $optType = '', $delayTime = '')
     {
         $this->uri = '/ble-locks/' . $this->deviceId . '/key';
         $requestParams['headers'] = array_merge(HONE_COMB_IOT_HEADERS, $this->authorization);
         $bodyArr = [];
         if ($userId || $userId === 0) {
             $bodyArr['userId'] = $userId;
+        }
+        if ($optType !== '') {
+            $bodyArr['optType'] = $optType;
+        }
+        if ($delayTime !== '') {
+            $bodyArr['delayTime'] = $delayTime;
         }
         $requestParams['query'] = $bodyArr;
         return $this->request($this->baseUri, $this->uri, $requestParams, 'GET');
