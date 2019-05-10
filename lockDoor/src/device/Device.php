@@ -32,7 +32,7 @@ abstract class Device
      * @param array $tags
      * @return mixed
      */
-    abstract public function bind($name = '',$secret = '', array $tags = []);
+    abstract public function bind($name = '', $secret = '', array $tags = []);
 
     /**
      * @param array $options
@@ -42,7 +42,7 @@ abstract class Device
      * @param array $tags
      * @return mixed
      */
-    abstract public function get(array $options = [],string $search = '', string $product = '', string $deviceId = '', array $tags = []);
+    abstract public function get(array $options = [], string $search = '', string $product = '', string $deviceId = '', array $tags = []);
 
     /**
      *
@@ -51,4 +51,14 @@ abstract class Device
      * @return mixed
      */
     abstract public function delete(array $deviceIds);
+
+    /**
+     * save方法 设备信息存储 不同厂商不同设备不同框架需要不同实现
+     * @param $name
+     * @param mixed ...$params
+     * @return mixed
+     */
+    public function save($name,...$params){
+        return call_user_func($name,$params);
+    }
 }
