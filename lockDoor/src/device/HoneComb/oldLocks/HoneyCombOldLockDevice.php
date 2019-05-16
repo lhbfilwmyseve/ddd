@@ -189,8 +189,8 @@ class HoneyCombOldLockDevice
      * @param $lockId
      * @param $userId
      * @param $hotelId
-     * @param $startTime 普通用户添加时必要
-     * @param $endTime 普通用户添加时必要
+     * @param $startTime string 普通用户添加时必要
+     * @param $endTime string 普通用户添加时必要
      * @param string $type [TENANT,MANAGER]
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -215,7 +215,6 @@ class HoneyCombOldLockDevice
         ];
         $request['body'] = json_encode($requestParams);
         $response = $this->request($this->url, '/api/locks/' . $lockId . '/permissions', $request);
-        return $response;
         if ($response->getStatusCode() == 200) {
             return $response;
         } else {
@@ -250,7 +249,6 @@ class HoneyCombOldLockDevice
             'Authorization' => $this->appKey,
         ];
         $request['body'] = json_encode($requestParams);
-        return $request;
         $response = $this->request($this->url, '/api/locks/' . $lockId . '/permissions', $request, 'DELETE');
         if ($response->getStatusCode() == 200) {
             return $response;
@@ -385,7 +383,7 @@ class HoneyCombOldLockDevice
             'userId' => $userId,
             'hotelId' => $hotelId,
             'type' => $type,
-            'data'=>$data
+            'data' => $data
         ];
         $sign = $this->makeSign($requestParams);
         $requestParams['timestamp'] = $this->timestamp;
