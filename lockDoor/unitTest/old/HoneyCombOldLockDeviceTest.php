@@ -28,20 +28,28 @@ class HoneyCombOldLockDeviceTest extends TestCase
 
        }*/
 
- /*   public function testSyncTime()
-    {
-
-    }*/
+//   public function testSyncTime()
+//    {
+//        $response = $this->oldLock->syncTime('304511F96966','255','246');
+//        var_export("\n==========================================================\n");
+//        var_export($response->getBody()->getContents());
+//        var_export("\n==========================================================\n");
+//
+//    }
 
 /*    public function testDeleteLocks()
     {
 
     }*/
 
-/*    public function testGetEvents()
-    {
-
-    }*/
+//    public function testGetEvents()
+//    {
+//        $response = $this->oldLock->getEvents('304511F96966','255','246','MANAGER');
+////        {"packets":["BgYaw8IoLIfzc45ZxgAGBgYGBgY="]}
+//        var_export("\n==========================================================\n");
+//        var_export($response->getBody()->getContents());
+//        var_export("\n==========================================================\n");
+//    }
 /*
     public function test__construct()
     {
@@ -82,17 +90,16 @@ class HoneyCombOldLockDeviceTest extends TestCase
      * 向门锁里面添加用户权限
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function testAddUserPermissions()
+/*    public function testAddUserPermissions()
     {
         $time = time();
         $startTime = date('Y-m-d H:i:s',$time);
         $endTime = date('Y-m-d H:i:s',strtotime('+1 day',$time));
-        /** @var TYPE_NAME $startTime */
-        $response = $this->oldLock->addUserPermissions('304511F96966','255','246',$startTime,$endTime);
+        $response = $this->oldLock->addUserPermissions('304511F96966','256','246',$startTime,$endTime,'MANAGER');
 //        ''{"created_at":"2019-5-15 10:00:21","updated_at":"2019-5-15 10:00:38","lockId":"304511F96966","userId":"255","hotelId":"246","type":"TENANT","startTime":"2019-05-15T18:00:38.000Z","endTime":"2019-05-16T18:00:38.000Z"}''
         var_export("\n======================\n");
         var_export($response->getBody()->getContents());
         var_export("\n======================\n");
 
-    }
+    }*/
 }

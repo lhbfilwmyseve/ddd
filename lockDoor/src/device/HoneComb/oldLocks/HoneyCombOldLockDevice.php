@@ -195,14 +195,14 @@ class HoneyCombOldLockDevice
      * @return array|mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function addUserPermissions($lockId, $userId, $hotelId, $startTime,$endTime,$type = 'TENANT')
+    public function addUserPermissions($lockId, $userId, $hotelId, $startTime, $endTime, $type = 'TENANT')
     {
         $requestParams = [
             'userId' => $userId,
             'hotelId' => $hotelId,
             'type' => $type
         ];
-        if ($type == 'TENANT'){
+        if ($type == 'TENANT') {
             $requestParams['startTime'] = $startTime;
             $requestParams['endTime'] = $endTime;
         }
@@ -298,9 +298,44 @@ class HoneyCombOldLockDevice
         }
     }
 
+    /**
+     * 获取开锁指令
+     * @param $lockId
+     * @param $userId
+     * @param $hotelId
+     * @param string $type
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function openDoor($lockId, $userId, $hotelId, $type = 'TENANT')
+    {
+        $requestParams = [
+            'userId' => $userId,
+            'hotelId' => $hotelId,
+            'type' => $type
+        ];
+        $sign = $this->makeSign($requestParams);
+        $requestParams['timestamp'] = $this->timestamp;
+        $requestParams['sign'] = $sign;
+        $request['headers'] = [
+            'Authorization' => $this->appKey
+        ];
+        $request['query'] = $requestParams;
+        $response = $this->request($this->url, '/api/locks/' . $lockId . '/packets/opendoor', $request, 'GET');
+        if ($response->getStatusCode() == 200) {
+            return $response;
+        } else {
+            return [
+                'code' => 202,
+                'message' => '获取开锁信息失败',
+                'data' => []
+            ];
+        }
+    }
+
 
     /**
-     * 获取门锁事件指令 包括 开锁  和 事件
+     * 获取门锁事件指令
      * @param $lockId
      * @param $userId
      * @param $hotelId
@@ -323,6 +358,43 @@ class HoneyCombOldLockDevice
         ];
         $request['query'] = $requestParams;
         $response = $this->request($this->url, '/api/locks/' . $lockId . '/packets/event', $request, 'GET');
+        if ($response->getStatusCode() == 200) {
+            return $response;
+        } else {
+            return [
+                'code' => 202,
+                'message' => '获取同步时间失败',
+                'data' => []
+            ];
+        }
+    }
+
+    /**
+     * 解析指令包
+     * @param $lockId
+     * @param $data
+     * @param $userId
+     * @param $hotelId
+     * @param string $type
+     * @return array|mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function decodePackets($lockId, $data, $userId, $hotelId, $type = 'TENANT')
+    {
+        $requestParams = [
+            'userId' => $userId,
+            'hotelId' => $hotelId,
+            'type' => $type,
+            'data'=>$data
+        ];
+        $sign = $this->makeSign($requestParams);
+        $requestParams['timestamp'] = $this->timestamp;
+        $requestParams['sign'] = $sign;
+        $request['headers'] = [
+            'Authorization' => $this->appKey
+        ];
+        $request['body'] = json_encode($requestParams);
+        $response = $this->request($this->url, '/api/locks/' . $lockId . '/packets', $request, 'POST');
         if ($response->getStatusCode() == 200) {
             return $response;
         } else {
