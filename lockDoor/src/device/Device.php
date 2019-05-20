@@ -59,6 +59,6 @@ abstract class Device
      * @return mixed
      */
     public function save($name,...$params){
-        return call_user_func($name,$params);
+        return call_user_func_array($name,$params);
     }
 }
