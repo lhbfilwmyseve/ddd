@@ -33,7 +33,7 @@ trait LockDoorRequest
         ];
         $client = new Client($config);
         try {
-            $params['http_errors'] = true;
+            $params['http_errors'] = false;
             $response = $client->request($method, $uri, $params);
             if ($response->getStatusCode() == 200) {
                 return $response;
