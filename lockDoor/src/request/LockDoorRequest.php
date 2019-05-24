@@ -10,6 +10,8 @@
 namespace LockDoor\Request;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 trait LockDoorRequest
 {
@@ -18,8 +20,8 @@ trait LockDoorRequest
      * @param $uri
      * @param array $params
      * @param string $method
-     * @return array|mixed|\Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return array|mixed|ResponseInterface
+     * @throws GuzzleException
      */
     public function request($base_url, $uri, $params = [], $method = 'POST')
     {
@@ -31,6 +33,7 @@ trait LockDoorRequest
         ];
         $client = new Client($config);
         try {
+            $params['http_errors'] = true;
             $response = $client->request($method, $uri, $params);
             if ($response->getStatusCode() == 200) {
                 return $response;
