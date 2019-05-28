@@ -37,20 +37,30 @@ class BeautyHeartDevice
             'time' => $this->time,
             'sign' => $this->_sign($this->companyId, $this->deviceInfo['Index'], $this->time)
         ];
-        $response = $this->request($this->url, '', ['form_params' => $requestData]);
+        $request = [
+            'form_params' => $requestData
+        ];
+        $response = $this->request($this->url, '', $request);
         if ($response->getStatusCode() !== 200) {
             return ['code' => 202, 'message' => '请求错误', 'data' => []];
         }
+
         $contentStr = $response->getBody()->getContents();
 
         $contentArr = json_decode($contentStr, true);
-        if (isset($contentArr['code']) && $contentArr['code'] === 100 && isset($contentArr['data']) && $contentArr['data']) {
+        if (isset($contentArr['code']) && $contentArr['code'] == 100 && isset($contentArr['data']) && $contentArr['data']) {
             return [
                 'code' => 200,
                 'message' => 'success',
                 'data' => [
                     'password' => $contentArr['data']
                 ]
+            ];
+        } else {
+            return [
+                'code' => 202,
+                'message' => 'fail',
+                'data' => []
             ];
         }
     }

@@ -28,14 +28,14 @@ class HoneyCombOldLockDeviceTest extends TestCase
 
        }*/
 
-//   public function testSyncTime()
-//    {
-//        $response = $this->oldLock->syncTime('304511F96966','255','246');
-//        var_export("\n==========================================================\n");
-//        var_export($response->getBody()->getContents());
-//        var_export("\n==========================================================\n");
-//
-//    }
+   public function testSyncTime()
+    {
+        $response = $this->oldLock->syncTime('304511F96966','255','246');
+        var_export("\n==========================================================\n");
+        var_export($response->getBody()->getContents());
+        var_export("\n==========================================================\n");
+
+    }
 
 /*    public function testDeleteLocks()
     {
