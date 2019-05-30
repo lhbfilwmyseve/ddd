@@ -393,7 +393,7 @@ class HoneyCombOldLockDevice
         $request['headers'] = [
             'Authorization' => $this->appKey
         ];
-        $request['body'] = json_encode($requestParams);
+        $request['form_params'] = $requestParams;
         $response = $this->request($this->url, '/api/locks/' . $lockId . '/packets', $request, 'POST');
         if ($response->getStatusCode() == 200) {
             return $response;
