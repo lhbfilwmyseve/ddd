@@ -3,7 +3,7 @@
   "require": {
     "php": ">7.1",
     "ext-openssl": "*",
-    "guzzlehttp/guzzle": "6.3.3"
+    "guzzlehttp/guzzle": "6.5.8"
   },
   "autoload": {
     "psr-4": {
